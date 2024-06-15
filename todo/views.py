@@ -28,3 +28,13 @@ class TaskUpdate(UpdateView):
     def form_valid(self,form):
         messages.success(self.request, "Task updated successfully")
         return super().form_valid(form)
+    
+class TaskCreate(CreateView):
+    model = Task
+    fields = ['title','description','completed']
+    success_url = reverse_lazy('tasks')
+    
+    def form_valid(self,form):
+        form.instance.user = self.request.user
+        messages.success(self.request, "Task Create successfully")
+        return super().form_valid(form)
