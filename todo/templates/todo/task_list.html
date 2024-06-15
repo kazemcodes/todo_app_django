@@ -5,7 +5,7 @@
   <ul class="tasks">
     {% for task in tasks %}
     <li>
-      <a href="#" class="{% if task.completed%}completed{%endif%}"
+      <a href="{%url 'task' task.id %}" class="{% if task.completed%}completed{%endif%}"
         >{{ task.title }}</a
       >
       <div class="task-controls">
