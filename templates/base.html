@@ -21,7 +21,11 @@
             ><i class="bi bi-plus-circle"></i> Create Task</a
           >
           <a href="#">Hi {{request.user | title}}</a>
-          <a href="{% url 'logout' %}" class="btn btn-outline">Logout</a>
+          <form method="post" action="{% url 'logout' %}">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-outline">Logout</button>
+          </form>
+
           {% else %}
           <a href="{% url 'login' %}" class="btn btn-outline">Login</a>
           <a href="{% url 'register' %}" class="btn btn-primary">Join Now</a>

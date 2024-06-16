@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from django.contrib.auth.views import LoginView
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import UpdateView, CreateView, FormView,DeleteView
@@ -80,3 +81,12 @@ class RegisterUser(FormView):
             login(self.request, user)
         return super().form_valid(form)
     
+class MyLoginView(LoginView):
+    redirect_authenticated_user = True
+    
+    def get_success_url(self):
+        return reverse_lazy('tasks') 
+    
+    def form_invalid(self, form):
+        messages.error(self.request,'Invalid username or password')
+        return self.render_to_response(self.get_context_data(form=form))
