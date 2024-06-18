@@ -1,5 +1,6 @@
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 from django.contrib.auth.views import LoginView
+from django.views import View
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import UpdateView, CreateView, FormView,DeleteView
@@ -8,6 +9,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import login
 from django.urls import reverse_lazy
+from todo.form import ProfileUpdateForm, UserUpdateForm
 from todo.models import Task
 from django.contrib import messages
 
@@ -91,3 +93,41 @@ class MyLoginView(LoginView):
         messages.error(self.request,'Invalid username or password')
         return self.render_to_response(self.get_context_data(form=form))
     
+class MyProfile(LoginRequiredMixin, View):
+    
+    def get(self, request, *args, **kwargs):
+        user_form = UserUpdateForm(instance=request.user)
+        profile_form = ProfileUpdateForm(instance=request.user.profile)
+        
+        context = {
+            'user_form': user_form,
+            'profile_form': profile_form
+        }
+        
+        return render(request, 'todo/profile.html', context)
+    def post(self,request):
+        user_form = UserUpdateForm(
+            request.POST, 
+            instance=request.user
+        )
+        profile_form = ProfileUpdateForm(
+            request.POST,
+            request.FILES,
+            instance=request.user.profile
+        )
+
+        if user_form.is_valid() and profile_form.is_valid():
+            user_form.save()
+            profile_form.save()
+            
+            messages.success(request,'Your profile has been updated successfully')
+            
+            return redirect('profile')
+        else:
+            context = {
+                'user_form': user_form,
+                'profile_form': profile_form
+            }
+            messages.error(request,'Error updating you profile')
+            
+            return render(request, 'todo/profile.html', context)

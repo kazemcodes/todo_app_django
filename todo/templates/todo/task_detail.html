@@ -4,7 +4,7 @@
 <header>
     <h2>{{ task.title }}</h2>
     <span class="badge {% if task.completed %}badge-completed{% else %}badge-pending{%endif%}">
-        {% if task.completed %} Completed {%else%} Pending {%endif%}
+        {% if task.completed %} کامل شده {%else%} در حال انجام {%endif%}
     </span>
 </header>
 <p>{{ task.description }}</p>

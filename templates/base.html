@@ -1,4 +1,5 @@
 {%load static %}
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -15,20 +16,24 @@
         <nav class="nav">
           {% if request.user.is_authenticated %}
           <a href="{% url 'tasks' %}"
-            ><i class="bi bi-list-task"></i> My Tasks</a
+            ><i class="bi bi-list-task"></i> کار های من</a
           >
           <a href="{% url 'task-create' %}"
-            ><i class="bi bi-plus-circle"></i> Create Task</a
+            ><i class="bi bi-plus-circle"></i> ساختن فعالیت</a
           >
-          <a href="#">Hi {{request.user | title}}</a>
+          <a href="{% url 'profile' %}">سلام {{request.user | title}}</a>
           <form method="post" action="{% url 'logout' %}">
             {% csrf_token %}
-            <button type="submit" class="btn btn-outline">Logout</button>
+            <button type="submit" class="btn btn-outline">
+              خارج شدن از حساب
+            </button>
           </form>
 
           {% else %}
-          <a href="{% url 'login' %}" class="btn btn-outline">Login</a>
-          <a href="{% url 'register' %}" class="btn btn-primary">Join Now</a>
+          
+            <a href="{% url 'login' %}" class="btn btn-outline">ورود</a>
+            <a href="{% url 'register' %}" class="btn btn-primary">ثبت نام</a>
+          
           {% endif %}
         </nav>
       </div>
@@ -39,7 +44,7 @@
     <footer class="footer">
       <div class="container">
         <p>
-          &copy; Copyright {% now "Y" %} by
+          &copy; ساخته شده {% now "Y" %} توسط
           <a href="https://www.kazemcodes.ir">Kazem Moridi</a>
         </p>
       </div>

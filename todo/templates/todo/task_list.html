@@ -3,7 +3,7 @@
 {%block content%}
 
 <div class="center">
-	<h2>My Todo List</h2>
+	<h2>فعالیت های من</h2>
 	{% if tasks %}
 	<ul class="tasks">
 		{% for task in tasks %}
@@ -15,7 +15,7 @@
 		    </li>
 		{% endfor %}
 	{% else %}
-		<p>🎉 Yay, you have no pending tasks! <a href="{%url 'task-create'%}">Create Task</a></p>
+		<p>🎉هیچ فعالیت در حال انجامی ندارد! <a href="{%url 'task-create'%}">اضافه کردن فعالیت</a></p>
 	{% endif %}
 	</ul>
 </div>

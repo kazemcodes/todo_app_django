@@ -4,7 +4,7 @@
 <div class="center">
     <form class="card" method="post" novialidate>
         {% csrf_token %}
-        <h2 class="text-center">Create a new account</h2>
+        <h2 class="text-center">ساختن یک حساب جدید</h2>
         {%for field in form%}
         {{ field.label_tag }} 
         {{ field }}
@@ -15,7 +15,7 @@
         {%endfor%}
         <input type="submit" value="Register" class="btn btn-primary full-width">
 		<hr>
-		<p class="text-center">Already have an account? <a href="{% url 'login'%}">Login Here</a></p>
+		<p class="text-center">صاحب یک حساب هستید؟ <a href="{% url 'login'%}">وارد شوید</a></p>
 
 
     </form>
